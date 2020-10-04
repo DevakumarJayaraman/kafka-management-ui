@@ -1,0 +1,15 @@
+##Create topics
+bin/windows/kafka-topics.bat --create --topic TEST --partitions 10 --replication-factor 2 --bootstrap-server localhost:8100,localhost:8101,localhost:8102
+
+##Describe topic
+bin/windows/kafka-topics.bat --describe --topic TEST --bootstrap-server localhost:8100,localhost:8101,localhost:8102
+
+##Describe group
+bin/windows/kafka-consumer-groups.bat --describe --group testGroup1 --bootstrap-server localhost:8100,localhost:8101,localhost:8102
+
+##Console producer
+bin/windows/kafka-console-producer.bat --topic TEST --broker-list localhost:8100,localhost:8101,localhost:8102
+
+##Console consumer
+bin/windows/kafka-console-consumer.bat --topic TEST --from-beginning --bootstrap-server localhost:8100,localhost:8101,localhost:8102 --group testGroup1
+
