@@ -1,16 +1,17 @@
 package com.deva.kafka.admin.response;
 
+import java.util.List;
+
 import com.deva.kafka.admin.domains.TopicInfo;
-import java.util.Map;
 
 public class TopicResponse extends WebResponse{
-    private Map<String, TopicInfo> topicInfoMap;
+    private List<TopicInfo> topicInfoList;
 
-    public Map<String, TopicInfo> getTopicInfoMap() {
-        return topicInfoMap;
-    }
+	public List<TopicInfo> getTopicInfoList() {
+		return topicInfoList;
+	}
 
-    public void setTopicInfoMap(Map<String, TopicInfo> topicInfoMap) {
-        this.topicInfoMap = topicInfoMap;
-    }
+	public void setTopicInfoList(List<TopicInfo> topicInfoList) {
+		this.topicInfoList = topicInfoList;
+	}    
 }
