@@ -1,7 +1,8 @@
 package com.deva.kafka.admin.controller;
 
-import com.deva.kafka.admin.response.GroupResponse;
 import com.deva.kafka.admin.response.ClusterResponse;
+import com.deva.kafka.admin.response.ConfigResponse;
+import com.deva.kafka.admin.response.GroupResponse;
 import com.deva.kafka.admin.response.TopicResponse;
 import com.deva.kafka.admin.service.KafkaAdminService;
 import com.deva.kafka.admin.utils.Constants;
@@ -39,11 +40,25 @@ public class KafkaAdminController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping(value = "getConfig/{resourceType}/{resource}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ConfigResponse> getNodeConfig(@PathVariable("resourceType") String resourceType,@PathVariable("resource") String resource) {
+        ConfigResponse response = new ConfigResponse();
+        try {
+            response.setConfigInfo(kafkaAdminService.getConfig(resourceType,resource));
+            response.setStatus(Constants.STATUS_SUCCESS);
+        } catch (KafkaOperationException ex) {
+            LOGGER.error("Exception occurred while fetching cluster nodes :", ex);
+            response.setStatus(Constants.STATUS_FAILURE);
+            response.setErrorMessage("Failed to retrieve node details : " + ex.getMessage());
+        }
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping(value = "getTopics", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TopicResponse> getTopics() {
         TopicResponse response = new TopicResponse();
         try {
-            response.setTopicInfoMap(kafkaAdminService.getTopics());
+            response.setTopicInfoList(kafkaAdminService.getTopics());
             response.setStatus(Constants.STATUS_SUCCESS);
         } catch (KafkaOperationException ex) {
             LOGGER.error("Exception occurred while fetching cluster nodes :", ex);

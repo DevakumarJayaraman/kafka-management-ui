@@ -3,14 +3,13 @@ package com.deva.kafka.admin.service;
 import com.deva.kafka.admin.domains.*;
 import com.deva.kafka.admin.utils.KafkaOperationException;
 import org.apache.kafka.clients.CommonClientConfigs;
-import org.apache.kafka.clients.admin.DescribeClusterResult;
-import org.apache.kafka.clients.admin.KafkaAdminClient;
-import org.apache.kafka.clients.admin.TopicDescription;
+import org.apache.kafka.clients.admin.*;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.consumer.OffsetAndMetadata;
 import org.apache.kafka.common.Node;
 import org.apache.kafka.common.TopicPartition;
+import org.apache.kafka.common.config.ConfigResource;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,18 +46,34 @@ public class KafkaAdminService {
         }
     }
 
-    public Map<String, TopicInfo> getTopics() throws KafkaOperationException {
+    public ConfigInfo getConfig(final String resourceType,final String resource) throws KafkaOperationException {
         try {
-            Map<String, TopicInfo> topicInfoMap = new HashMap<>();
+            ConfigInfo configInfo=new ConfigInfo();
+            ConfigResource brokerConfig = new ConfigResource(ConfigResource.Type.valueOf(resourceType), resource);
+            Map<ConfigResource, Config> config = kafkaAdminClient.describeConfigs(Arrays.asList(brokerConfig)).all()
+                    .get(10, TimeUnit.SECONDS);
+            Map<String, String> nodeConfigurations = new HashMap<>();
+            config.get(brokerConfig).entries().forEach(configEntry -> {
+                nodeConfigurations.put(configEntry.name(),configEntry.value());
+            });
+            configInfo.setConfigMap(nodeConfigurations);
+            return configInfo;
+        } catch (Exception ex) {
+            LOGGER.error("Internal Exception: ", ex);
+            throw new KafkaOperationException("Exception while fetching nodes", ex);
+        }
+    }
+
+    public List<TopicInfo> getTopics() throws KafkaOperationException {
+        try {
+            List<TopicInfo> topicInfoList=new ArrayList<>();
             Collection<String> topicNames = kafkaAdminClient.listTopics().names().get(10, TimeUnit.SECONDS);
             Map<String, TopicDescription> topicDescriptionMap = kafkaAdminClient.describeTopics(topicNames).all().get();
-
             topicDescriptionMap.forEach((topicName, topicDescription) -> {
                 TopicInfo topicInfo = new TopicInfo(topicName, topicDescription.partitions().size());
                 topicDescription.partitions().forEach(topicPartitionInfo -> {
                     //Get partition Leader Details
                     NodeInfo leader = new NodeInfo(topicPartitionInfo.leader().idString(), topicPartitionInfo.leader().host() + ":" + topicPartitionInfo.leader().port());
-
                     //Get partition Replica Details
                     List<NodeInfo> replicas = new ArrayList<>();
                     topicPartitionInfo.replicas().forEach(node -> {
@@ -67,10 +82,10 @@ public class KafkaAdminService {
                     PartitionInfo partitionInfo = new PartitionInfo(topicPartitionInfo.partition(), leader, replicas);
                     topicInfo.addPartitionInfo(partitionInfo);
                 });
-                topicInfoMap.put(topicName, topicInfo);
+                topicInfoList.add(topicInfo);
             });
-            LOGGER.info("topicDescriptionMap : {}", topicInfoMap);
-            return topicInfoMap;
+            LOGGER.info("topicInfoList : {}", topicInfoList);
+            return topicInfoList;
         } catch (Exception ex) {
             LOGGER.error("Internal Exception: ", ex);
             throw new KafkaOperationException("Exception while fetching topics", ex);
@@ -95,7 +110,6 @@ public class KafkaAdminService {
             doWithKafkaConsumer(groupId, (c) -> {
                 endOffsets.putAll(c.endOffsets(offsetMetaDataMap.keySet()));
             });
-
             offsetMetaDataMap.forEach(((topicPartition, offsetAndMetadata) -> {
                 GroupPartitionInfo groupPartitionInfo = new GroupPartitionInfo(topicPartition.topic(), topicPartition.partition(), offsetAndMetadata.offset());
                 consumerGroupInfo.addGroupPartitionInfo(groupPartitionInfo);

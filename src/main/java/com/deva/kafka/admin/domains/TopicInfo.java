@@ -17,7 +17,23 @@ public class TopicInfo {
         return partitionInfoList;
     }
 
-    public void addPartitionInfo(PartitionInfo partitionInfo){
+	public String getTopicName() {
+		return topicName;
+	}
+
+	public void setTopicName(String topicName) {
+		this.topicName = topicName;
+	}
+
+	public int getPartitionCount() {
+		return partitionCount;
+	}
+
+	public void setPartitionCount(int partitionCount) {
+		this.partitionCount = partitionCount;
+	}
+	
+	public void addPartitionInfo(PartitionInfo partitionInfo){
         partitionInfoList.add(partitionInfo);
     }
 }
