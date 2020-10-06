@@ -2,20 +2,34 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '2.3.4.RELEASE'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'war'
 }
 
-group 'com.deva.kafka.admin'
-version '1.0-SNAPSHOT'
+war {
+    baseName = 'spring-boot-jsp-sample'
+    version = '0.0.1-SNAPSHOT'
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
 }
 
+configurations {
+    providedRuntime
+}
+
 dependencies {
+	compile('org.springframework.boot:spring-boot-devtools')
     implementation('org.springframework.boot:spring-boot-starter-web')
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation('org.apache.kafka:kafka_2.12')
     implementation('org.apache.kafka:kafka-clients')
+    compile('javax.servlet:jstl')
+    providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+    providedRuntime('org.apache.tomcat.embed:tomcat-embed-jasper')
 }
 
 bootJar {
