@@ -1,0 +1,11 @@
+##List all groups
+curl http://localhost:8080/kafka-admin/getConsumerGroups/
+
+{
+  "status": "success",
+  "errorMessage": null,
+  "consumerGroups": [
+    "testGroup1"
+  ],
+  "consumerGroupInfoList": []
+}

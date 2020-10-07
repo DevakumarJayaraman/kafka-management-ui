@@ -46,10 +46,10 @@ public class KafkaAdminService {
         }
     }
 
-    public ConfigInfo getConfig(final String resourceType,final String resource) throws KafkaOperationException {
+    public ConfigInfo getConfig(final String resourceType,final String resourceName) throws KafkaOperationException {
         try {
-            ConfigInfo configInfo=new ConfigInfo();
-            ConfigResource brokerConfig = new ConfigResource(ConfigResource.Type.valueOf(resourceType), resource);
+            ConfigInfo configInfo=new ConfigInfo(resourceType,resourceName);
+            ConfigResource brokerConfig = new ConfigResource(ConfigResource.Type.valueOf(resourceType), resourceName);
             Map<ConfigResource, Config> config = kafkaAdminClient.describeConfigs(Arrays.asList(brokerConfig)).all()
                     .get(10, TimeUnit.SECONDS);
             Map<String, String> nodeConfigurations = new HashMap<>();
