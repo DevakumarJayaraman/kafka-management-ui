@@ -15,14 +15,20 @@ const useStyles = makeStyles(()=>({
 
 const TopicGrid = ()=>{
     console.log("Node Grid-->");
-    const [nodeList,setNodeList] = useState([]);
-    
+    const [topics,setTopics] = useState([]);
 
+   const formatTopics=(res)=>{
+        return res?.topicInfoList?.map((topic)=>{
+            topic.id = topic.topicName;
+            return topic;
+        });
+    }
+    
     useEffect(()=>{
-          fetch(Constants.BASE_URL+"/getCluster").then(res=>res.json())
+          fetch(Constants.BASE_URL+"/getTopics").then(res=>res.json())
           .then((res)=>{
-              console.log("NodeInfoList",res?.clusterInfo?.nodeInfoList);
-            setNodeList(res?.clusterInfo?.nodeInfoList?.map((rec)=>{rec.id = rec.nodeId; return rec;}));
+              console.log("NodeInfoList",res?.topicInfoList);
+              setTopics(formatTopics(res));
           });
     },[]);
 
@@ -32,15 +38,17 @@ const TopicGrid = ()=>{
         <div style={{ minHeight: 400,height:"100%", width: '100%' }}>
         <DataGrid className={classes.root}
             columns={[
-                {field:'nodeId',headerName:"Broker Id"},                             
-                {field:"address",headerName:"Broker Host Details",width:300},
+                {field:'topicName',headerName:"Topic Name",width:200},                             
+                {field:"partitionCount",headerName:"Partition Count",width:150},
                 {field:'id',hide:true},   
             ]}
-            rows={nodeList}
+            rows={topics}
             hideFooterPagination={true}
         >
         </DataGrid>
         </div>
     );
+
+
 }
 export default TopicGrid;
