@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import {DataGrid} from '@material-ui/data-grid';
+import {Link} from '@material-ui/core';
 import Constants from './../../Utils/Constants';
 import { makeStyles } from '@material-ui/core';
 
@@ -39,7 +40,13 @@ const TopicGrid = ()=>{
         <DataGrid className={classes.root}
             columns={[
                 {field:'topicName',headerName:"Topic Name",width:200},                             
-                {field:"partitionCount",headerName:"Partition Count",width:150},
+                {field:"partitionCount",headerName:"Partition Count",width:150,
+                    renderCell:(params)=>{
+                         return (
+                             <Link>{params.value}</Link>
+                         )   
+                    }
+                },
                 {field:'id',hide:true},   
             ]}
             rows={topics}

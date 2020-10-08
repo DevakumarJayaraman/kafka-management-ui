@@ -1,5 +1,6 @@
 
 import React from 'react';
+
 import {Switch,Route} from 'react-router-dom';
 import ConsumerDetails from './ConsumerDetails';
 import NodeContainer from './ClusterNode/NodeContainer';
@@ -7,7 +8,7 @@ import Overview from './Overview';
 import TopicsContainer from './Topics/TopicsContainer';
 
 const BaseComponents = ()=>{
-    return (
+    return (        
         <Switch>
             <Route path="/" component={Overview} exact></Route>
             <Route path="/node" component={NodeContainer} exact></Route>

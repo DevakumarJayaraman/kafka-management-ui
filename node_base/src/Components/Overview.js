@@ -1,4 +1,4 @@
-import {Card, CardContent, CardHeader, Grid, makeStyles, Typography,Hidden } from '@material-ui/core';
+import {Card, CardContent, CardHeader, Grid, makeStyles, Typography,Hidden,Zoom } from '@material-ui/core';
 import React from 'react';
 
 const useStyles=makeStyles(theme=>({
@@ -19,6 +19,7 @@ const Overview = ()=>{
     const classes = useStyles();
 
     return (
+        <Zoom in={true}>
         <Grid container direction="column"
             className={classes.root} 
                 justify="center"                 
@@ -76,6 +77,7 @@ const Overview = ()=>{
                 </Hidden>
             </Grid>
         </Grid>
+        </Zoom>
     );
 }   
 export default Overview;
