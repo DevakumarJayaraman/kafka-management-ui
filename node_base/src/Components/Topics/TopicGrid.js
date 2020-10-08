@@ -1,5 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
+import {useHistory} from 'react-router-dom';
 import {DataGrid} from '@material-ui/data-grid';
 import {Link} from '@material-ui/core';
 import Constants from './../../Utils/Constants';
@@ -11,12 +12,16 @@ const useStyles = makeStyles(()=>({
       "& .MuiDataGrid-footer":{
           justifyContent:"flex-end"
       }
+  },
+  linkRoot:{
+      cursor:"pointer"
   }  
 }));
 
 const TopicGrid = ()=>{
     console.log("Node Grid-->");
     const [topics,setTopics] = useState([]);
+    const history = useHistory();
 
    const formatTopics=(res)=>{
         return res?.topicInfoList?.map((topic)=>{
@@ -33,6 +38,13 @@ const TopicGrid = ()=>{
           });
     },[]);
 
+    const openPartition=(params)=>{
+        history.push({
+            pathname:"/topic/"+params.getValue("topicName")+"/partition",
+            state:params.data
+        });
+    }
+
     const classes = useStyles();
 
     return (
@@ -43,7 +55,7 @@ const TopicGrid = ()=>{
                 {field:"partitionCount",headerName:"Partition Count",width:150,
                     renderCell:(params)=>{
                          return (
-                             <Link>{params.value}</Link>
+                             <Link className={classes.linkRoot} onClick={openPartition.bind(this,params)}>{params.value}</Link>
                          )   
                     }
                 },
