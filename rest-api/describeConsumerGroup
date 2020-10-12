@@ -1,0 +1,85 @@
+##Describe a group
+curl http://localhost:8080/kafka-admin/describeConsumerGroup/testGroup4
+
+{
+  "status": "success",
+  "errorMessage": null,
+  "consumerGroups": null,
+  "consumerGroupInfoList": [
+    {
+      "groupId": "testGroup1",
+      "groupPartitions": [
+        {
+          "topicName": "TEST",
+          "partitionId": 0,
+          "currentOffset": 6,
+          "endOffset": 6,
+          "lag": 0
+        },
+        {
+          "topicName": "TEST",
+          "partitionId": 1,
+          "currentOffset": 4,
+          "endOffset": 4,
+          "lag": 0
+        },
+        {
+          "topicName": "TEST",
+          "partitionId": 2,
+          "currentOffset": 4,
+          "endOffset": 4,
+          "lag": 0
+        },
+        {
+          "topicName": "TEST",
+          "partitionId": 3,
+          "currentOffset": 4,
+          "endOffset": 4,
+          "lag": 0
+        },
+        {
+          "topicName": "TEST",
+          "partitionId": 4,
+          "currentOffset": 5,
+          "endOffset": 5,
+          "lag": 0
+        },
+        {
+          "topicName": "TEST",
+          "partitionId": 5,
+          "currentOffset": 5,
+          "endOffset": 5,
+          "lag": 0
+        },
+        {
+          "topicName": "TEST",
+          "partitionId": 6,
+          "currentOffset": 5,
+          "endOffset": 5,
+          "lag": 0
+        },
+        {
+          "topicName": "TEST",
+          "partitionId": 7,
+          "currentOffset": 5,
+          "endOffset": 5,
+          "lag": 0
+        },
+        {
+          "topicName": "TEST",
+          "partitionId": 8,
+          "currentOffset": 6,
+          "endOffset": 6,
+          "lag": 0
+        },
+        {
+          "topicName": "TEST",
+          "partitionId": 9,
+          "currentOffset": 6,
+          "endOffset": 6,
+          "lag": 0
+        }
+      ]
+    }
+  ]
+}

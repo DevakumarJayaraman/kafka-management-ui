@@ -1,0 +1,186 @@
+
+##List all Topics
+curl http://localhost:8080/kafka-admin/getTopics/
+
+{
+  "status": "success",
+  "errorMessage": null,
+  "topicInfoList": [
+    {
+      "topicName": "TEST",
+      "partitionCount": 10,
+      "partitionInfoList": [
+        {
+          "partionId": 0,
+          "leader": {
+            "nodeId": "1",
+            "address": "localhost:8101"
+          },
+          "replicas": [
+            {
+              "nodeId": "0",
+              "address": "localhost:8100"
+            },
+            {
+              "nodeId": "1",
+              "address": "localhost:8101"
+            }
+          ]
+        },
+        {
+          "partionId": 1,
+          "leader": {
+            "nodeId": "0",
+            "address": "localhost:8100"
+          },
+          "replicas": [
+            {
+              "nodeId": "2",
+              "address": "localhost:8102"
+            },
+            {
+              "nodeId": "0",
+              "address": "localhost:8100"
+            }
+          ]
+        },
+        {
+          "partionId": 2,
+          "leader": {
+            "nodeId": "1",
+            "address": "localhost:8101"
+          },
+          "replicas": [
+            {
+              "nodeId": "1",
+              "address": "localhost:8101"
+            },
+            {
+              "nodeId": "2",
+              "address": "localhost:8102"
+            }
+          ]
+        },
+        {
+          "partionId": 3,
+          "leader": {
+            "nodeId": "0",
+            "address": "localhost:8100"
+          },
+          "replicas": [
+            {
+              "nodeId": "0",
+              "address": "localhost:8100"
+            },
+            {
+              "nodeId": "2",
+              "address": "localhost:8102"
+            }
+          ]
+        },
+        {
+          "partionId": 4,
+          "leader": {
+            "nodeId": "2",
+            "address": "localhost:8102"
+          },
+          "replicas": [
+            {
+              "nodeId": "2",
+              "address": "localhost:8102"
+            },
+            {
+              "nodeId": "1",
+              "address": "localhost:8101"
+            }
+          ]
+        },
+        {
+          "partionId": 5,
+          "leader": {
+            "nodeId": "1",
+            "address": "localhost:8101"
+          },
+          "replicas": [
+            {
+              "nodeId": "1",
+              "address": "localhost:8101"
+            },
+            {
+              "nodeId": "0",
+              "address": "localhost:8100"
+            }
+          ]
+        },
+        {
+          "partionId": 6,
+          "leader": {
+            "nodeId": "1",
+            "address": "localhost:8101"
+          },
+          "replicas": [
+            {
+              "nodeId": "0",
+              "address": "localhost:8100"
+            },
+            {
+              "nodeId": "1",
+              "address": "localhost:8101"
+            }
+          ]
+        },
+        {
+          "partionId": 7,
+          "leader": {
+            "nodeId": "0",
+            "address": "localhost:8100"
+          },
+          "replicas": [
+            {
+              "nodeId": "2",
+              "address": "localhost:8102"
+            },
+            {
+              "nodeId": "0",
+              "address": "localhost:8100"
+            }
+          ]
+        },
+        {
+          "partionId": 8,
+          "leader": {
+            "nodeId": "1",
+            "address": "localhost:8101"
+          },
+          "replicas": [
+            {
+              "nodeId": "1",
+              "address": "localhost:8101"
+            },
+            {
+              "nodeId": "2",
+              "address": "localhost:8102"
+            }
+          ]
+        },
+        {
+          "partionId": 9,
+          "leader": {
+            "nodeId": "0",
+            "address": "localhost:8100"
+          },
+          "replicas": [
+            {
+              "nodeId": "0",
+              "address": "localhost:8100"
+            },
+            {
+              "nodeId": "2",
+              "address": "localhost:8102"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

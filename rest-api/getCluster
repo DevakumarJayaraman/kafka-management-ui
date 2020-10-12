@@ -1,0 +1,24 @@
+##List all Cluster Nodes
+curl http://localhost:8080/kafka-admin/getCluster/
+
+{
+  "status": "success",
+  "errorMessage": null,
+  "clusterInfo": {
+    "clusterId": "rB5oodKkSnm8qsMo1TpxDg",
+    "nodeInfoList": [
+      {
+        "nodeId": "0",
+        "address": "localhost:8100"
+      },
+      {
+        "nodeId": "1",
+        "address": "localhost:8101"
+      },
+      {
+        "nodeId": "2",
+        "address": "localhost:8102"
+      }
+    ]
+  }
+}

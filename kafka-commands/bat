@@ -13,6 +13,10 @@ bin/windows/kafka-console-producer.bat --topic TEST --broker-list localhost:8100
 ##Console consumer
 bin/windows/kafka-console-consumer.bat --topic TEST --from-beginning --bootstrap-server localhost:8100,localhost:8101,localhost:8102 --group testGroup1
 
+bin/windows/kafka-console-consumer.bat --topic TEST --from-beginning --bootstrap-server localhost:8100,localhost:8101,localhost:8102 --group testGroup1
+
+
+
 ------------------Zookeeper Start in windows--------------------------
 
 .\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
